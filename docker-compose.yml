@@ -1,0 +1,27 @@
+version: "3.3"
+services:
+        mysql-container:
+                restart: always
+                image: mysql:latest
+                container_name: mysql-container
+                environment:
+                    MYSQL_DATABASE: store_db
+                    MYSQL_ROOT_PASSWORD: root
+                    MYSQL_ROOT_HOS: '%'
+                ports:
+                   - "6033:3306"
+                
+        myjavacontaine:
+                restart: on-failure
+                build: ./
+                #                expose:
+                #  - "8086"
+                ports:
+                  - "8086:8086"
+                environment:
+                        WAIT_HOSTS: mysql:3306
+                depends_on:
+                       - mysql-container
+
+             
+            
